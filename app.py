@@ -4,7 +4,20 @@ import sqlite3
 app = Flask(__name__)
 
 def get_db():
-    return sqlite3.connect("kho.db")
+    db = sqlite3.connect("kho.db")
+    
+    db.execute("""
+    CREATE TABLE IF NOT EXISTS phones (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        imei TEXT,
+        price_in INTEGER,
+        price_out INTEGER,
+        status TEXT
+    )
+    """)
+    
+    return db
 
 # 👉 convert nhập (1k -> 1000)
 def convert_price(text):
